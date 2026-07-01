@@ -6,355 +6,98 @@
 <title>Poker Night 🃏</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap');
-
   :root {
-    --bg: #0f1117;
-    --surface: #1a1d26;
-    --surface2: #22263a;
-    --border: #2e3248;
-    --green: #22c55e;
-    --green-dim: #16a34a22;
-    --red: #ef4444;
-    --red-dim: #ef444422;
-    --gold: #f59e0b;
-    --gold-dim: #f59e0b22;
-    --blue: #6366f1;
-    --blue-dim: #6366f122;
-    --text: #e8eaf0;
-    --text2: #8b92a8;
-    --text3: #5a6070;
-    --chip-white: #f0f0f0;
-    --chip-red: #dc2626;
-    --chip-blue: #2563eb;
-    --chip-black: #1f2937;
+    --bg:#0f1117;--surface:#1a1d26;--surface2:#22263a;--border:#2e3248;
+    --green:#22c55e;--green-dim:#16a34a22;--red:#ef4444;--red-dim:#ef444422;
+    --gold:#f59e0b;--gold-dim:#f59e0b22;--blue:#6366f1;--blue-dim:#6366f122;
+    --text:#e8eaf0;--text2:#8b92a8;--text3:#5a6070;
   }
-
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    font-family: 'IBM Plex Sans Thai', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    font-size: 15px;
-    line-height: 1.5;
-  }
-
-  /* ── Header ── */
-  .header {
-    background: var(--surface);
-    border-bottom: 1px solid var(--border);
-    padding: 16px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-  .logo { display: flex; align-items: center; gap: 10px; }
-  .logo-chips { display: flex; gap: 3px; }
-  .chip {
-    width: 18px; height: 18px; border-radius: 50%;
-    border: 2px solid rgba(255,255,255,0.2);
-  }
-  .logo h1 { font-size: 18px; font-weight: 700; letter-spacing: -0.3px; }
-  .logo span { color: var(--green); }
-  .header-badge {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px;
-    color: var(--text3);
-    background: var(--surface2);
-    padding: 4px 10px;
-    border-radius: 20px;
-    border: 1px solid var(--border);
-  }
-
-  /* ── Nav Tabs ── */
-  .nav {
-    display: flex;
-    background: var(--surface);
-    border-bottom: 1px solid var(--border);
-    padding: 0 20px;
-    gap: 4px;
-    overflow-x: auto;
-  }
-  .nav button {
-    background: none; border: none; color: var(--text2);
-    padding: 12px 16px; font-size: 14px; font-weight: 500;
-    cursor: pointer; white-space: nowrap;
-    border-bottom: 2px solid transparent;
-    transition: all .15s;
-    font-family: inherit;
-  }
-  .nav button.active { color: var(--green); border-bottom-color: var(--green); }
-  .nav button:hover:not(.active) { color: var(--text); }
-
-  /* ── Pages ── */
-  .page { display: none; padding: 20px; max-width: 680px; margin: 0 auto; }
-  .page.active { display: block; }
-
-  /* ── Cards ── */
-  .card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 20px;
-    margin-bottom: 16px;
-  }
-  .card-title {
-    font-size: 13px; font-weight: 600;
-    text-transform: uppercase; letter-spacing: 0.8px;
-    color: var(--text3); margin-bottom: 14px;
-  }
-
-  /* ── Buttons ── */
-  .btn {
-    display: inline-flex; align-items: center; justify-content: center; gap: 6px;
-    padding: 10px 18px; border-radius: 8px; border: none;
-    font-size: 14px; font-weight: 600; cursor: pointer;
-    font-family: inherit; transition: all .15s;
-  }
-  .btn-primary { background: var(--green); color: #000; }
-  .btn-primary:hover { background: #16a34a; }
-  .btn-danger { background: var(--red); color: #fff; }
-  .btn-danger:hover { background: #b91c1c; }
-  .btn-ghost {
-    background: var(--surface2); color: var(--text);
-    border: 1px solid var(--border);
-  }
-  .btn-ghost:hover { border-color: var(--text2); }
-  .btn-gold { background: var(--gold); color: #000; }
-  .btn-gold:hover { background: #d97706; }
-  .btn-sm { padding: 6px 12px; font-size: 13px; }
-  .btn-block { width: 100%; }
-
-  /* ── Inputs ── */
-  input, select, textarea {
-    background: var(--surface2); border: 1px solid var(--border);
-    color: var(--text); border-radius: 8px; padding: 10px 14px;
-    font-size: 14px; font-family: inherit; width: 100%;
-    transition: border-color .15s;
-  }
-  input:focus, select:focus { outline: none; border-color: var(--green); }
-  label { display: block; font-size: 13px; color: var(--text2); margin-bottom: 6px; font-weight: 500; }
-  .form-group { margin-bottom: 14px; }
-  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-
-  /* ── Poll / Schedule ── */
-  .day-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 6px;
-    margin-bottom: 16px;
-  }
-  .day-cell {
-    aspect-ratio: 1;
-    border-radius: 10px;
-    border: 1px solid var(--border);
-    background: var(--surface2);
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    cursor: pointer; transition: all .15s;
-    position: relative;
-    padding: 4px;
-  }
-  .day-cell:hover { border-color: var(--green); }
-  .day-cell.voted {
-    background: var(--green-dim);
-    border-color: var(--green);
-  }
-  .day-cell.has-votes { border-color: var(--gold); }
-  .day-cell.top-pick {
-    background: var(--gold-dim);
-    border-color: var(--gold);
-  }
-  .day-cell .day-name { font-size: 9px; color: var(--text3); text-transform: uppercase; }
-  .day-cell .day-num { font-size: 16px; font-weight: 700; line-height: 1; }
-  .day-cell .vote-count {
-    font-size: 10px;
-    background: var(--gold);
-    color: #000;
-    border-radius: 10px;
-    padding: 1px 5px;
-    font-weight: 700;
-    margin-top: 2px;
-  }
-  .day-cell .vote-count.my-vote { background: var(--green); }
-  .day-cell.empty { opacity: 0; cursor: default; pointer-events: none; }
-
-  .voter-list {
-    display: flex; flex-direction: column; gap: 8px;
-  }
-  .voter-item {
-    display: flex; align-items: center; justify-content: space-between;
-    background: var(--surface2); border-radius: 8px; padding: 10px 14px;
-  }
-  .voter-name { font-weight: 600; }
-  .voter-days {
-    display: flex; gap: 4px; flex-wrap: wrap;
-  }
-  .voter-tag {
-    font-size: 11px; background: var(--blue-dim);
-    color: var(--blue); padding: 2px 8px; border-radius: 10px;
-    border: 1px solid var(--blue);
-  }
-
-  /* ── Session ── */
-  .session-header {
-    display: flex; align-items: flex-start; justify-content: space-between;
-    margin-bottom: 16px;
-  }
-  .session-date {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 12px; color: var(--text3);
-  }
-  .session-status {
-    display: inline-flex; align-items: center; gap: 5px;
-    font-size: 12px; font-weight: 600; padding: 4px 10px;
-    border-radius: 20px;
-  }
-  .status-live { background: var(--red-dim); color: var(--red); }
-  .status-open { background: var(--green-dim); color: var(--green); }
-  .status-ended { background: var(--surface2); color: var(--text3); }
-  .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
-
-  /* ── Buy-in table ── */
-  .buyin-table { width: 100%; border-collapse: collapse; }
-  .buyin-table th {
-    text-align: left; font-size: 11px; color: var(--text3);
-    text-transform: uppercase; letter-spacing: 0.5px;
-    padding: 8px 12px; border-bottom: 1px solid var(--border);
-  }
-  .buyin-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); }
-  .buyin-table tr:last-child td { border-bottom: none; }
-  .buyin-table tr:hover td { background: var(--surface2); }
-  .mono { font-family: 'IBM Plex Mono', monospace; }
-  .text-green { color: var(--green); }
-  .text-red { color: var(--red); }
-  .text-gold { color: var(--gold); }
-  .text-blue { color: var(--blue); }
-
-  /* ── Stats row ── */
-  .stats-row {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
-    margin-bottom: 16px;
-  }
-  .stat-box {
-    background: var(--surface2); border-radius: 10px;
-    padding: 14px; text-align: center;
-    border: 1px solid var(--border);
-  }
-  .stat-val {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 20px; font-weight: 700;
-  }
-  .stat-label { font-size: 11px; color: var(--text3); margin-top: 2px; }
-
-  /* ── Log ── */
-  .log-list { display: flex; flex-direction: column; gap: 6px; }
-  .log-item {
-    display: flex; align-items: flex-start; gap: 10px;
-    font-size: 13px; padding: 8px 0;
-    border-bottom: 1px solid var(--border);
-  }
-  .log-item:last-child { border-bottom: none; }
-  .log-time { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--text3); min-width: 50px; }
-  .log-who { font-weight: 600; color: var(--blue); }
-
-  /* ── PIN Modal ── */
-  .modal-overlay {
-    display: none; position: fixed; inset: 0;
-    background: rgba(0,0,0,0.7); z-index: 200;
-    align-items: center; justify-content: center;
-    padding: 20px;
-  }
-  .modal-overlay.open { display: flex; }
-  .modal {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 16px; padding: 28px; width: 100%; max-width: 360px;
-  }
-  .modal h2 { font-size: 18px; margin-bottom: 6px; }
-  .modal p { color: var(--text2); font-size: 14px; margin-bottom: 20px; }
-  .pin-dots {
-    display: flex; gap: 10px; justify-content: center; margin-bottom: 20px;
-  }
-  .pin-dot {
-    width: 14px; height: 14px; border-radius: 50%;
-    border: 2px solid var(--border); transition: all .15s;
-  }
-  .pin-dot.filled { background: var(--green); border-color: var(--green); }
-  .pin-keypad {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
-    margin-bottom: 16px;
-  }
-  .pin-key {
-    background: var(--surface2); border: 1px solid var(--border);
-    color: var(--text); border-radius: 10px; padding: 14px;
-    font-size: 18px; font-weight: 600; cursor: pointer;
-    font-family: 'IBM Plex Mono', monospace; transition: all .1s;
-  }
-  .pin-key:hover { border-color: var(--green); background: var(--green-dim); }
-  .pin-key:active { transform: scale(0.96); }
-  .pin-key.del { font-size: 14px; }
-
-  /* ── Summary share ── */
-  .summary-box {
-    background: var(--surface2); border-radius: 10px; padding: 16px;
-    font-family: 'IBM Plex Mono', monospace; font-size: 13px;
-    white-space: pre-wrap; line-height: 1.7;
-    border: 1px solid var(--border);
-    margin-bottom: 12px;
-  }
-
-  /* ── Toast ── */
-  .toast {
-    position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
-    background: var(--surface); border: 1px solid var(--green);
-    color: var(--green); padding: 10px 20px; border-radius: 30px;
-    font-size: 14px; font-weight: 600; z-index: 300;
-    opacity: 0; transition: opacity .2s;
-    pointer-events: none;
-  }
-  .toast.show { opacity: 1; }
-
-  /* ── Misc ── */
-  .divider { border: none; border-top: 1px solid var(--border); margin: 16px 0; }
-  .flex { display: flex; }
-  .gap-8 { gap: 8px; }
-  .gap-12 { gap: 12px; }
-  .items-center { align-items: center; }
-  .justify-between { justify-content: space-between; }
-  .mb-12 { margin-bottom: 12px; }
-  .mb-16 { margin-bottom: 16px; }
-  .empty-state {
-    text-align: center; padding: 40px 20px; color: var(--text3);
-  }
-  .empty-state .emoji { font-size: 40px; margin-bottom: 10px; }
-  .role-badge {
-    font-size: 11px; padding: 2px 8px; border-radius: 10px; font-weight: 600;
-  }
-  .role-host { background: var(--gold-dim); color: var(--gold); border: 1px solid var(--gold); }
-  .role-cohost { background: var(--blue-dim); color: var(--blue); border: 1px solid var(--blue); }
-  .alert {
-    padding: 12px 16px; border-radius: 8px; font-size: 13px;
-    margin-bottom: 14px;
-  }
-  .alert-warning { background: var(--gold-dim); color: var(--gold); border: 1px solid var(--gold); }
-  .alert-success { background: var(--green-dim); color: var(--green); border: 1px solid var(--green); }
-  .alert-error { background: var(--red-dim); color: var(--red); border: 1px solid var(--red); }
-
-  @media (max-width: 400px) {
-    .day-grid { grid-template-columns: repeat(7, 1fr); gap: 4px; }
-    .day-cell .day-num { font-size: 13px; }
-    .form-row { grid-template-columns: 1fr; }
-    .stats-row { grid-template-columns: repeat(3, 1fr); }
-  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'IBM Plex Sans Thai',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:15px;line-height:1.5}
+  .header{background:var(--surface);border-bottom:1px solid var(--border);padding:16px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+  .logo{display:flex;align-items:center;gap:10px}
+  .logo-chips{display:flex;gap:3px}
+  .chip{width:18px;height:18px;border-radius:50%;border:2px solid rgba(255,255,255,.2)}
+  .logo h1{font-size:18px;font-weight:700;letter-spacing:-.3px}
+  .logo span{color:var(--green)}
+  .header-badge{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--text3);background:var(--surface2);padding:4px 10px;border-radius:20px;border:1px solid var(--border);display:flex;align-items:center;gap:6px}
+  .sync-dot{width:7px;height:7px;border-radius:50%;background:var(--text3);flex-shrink:0;transition:background .3s}
+  .sync-dot.live{background:var(--green);box-shadow:0 0 6px var(--green)}
+  .nav{display:flex;background:var(--surface);border-bottom:1px solid var(--border);padding:0 20px;gap:4px;overflow-x:auto}
+  .nav button{background:none;border:none;color:var(--text2);padding:12px 16px;font-size:14px;font-weight:500;cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;transition:all .15s;font-family:inherit}
+  .nav button.active{color:var(--green);border-bottom-color:var(--green)}
+  .nav button:hover:not(.active){color:var(--text)}
+  .page{display:none;padding:20px;max-width:680px;margin:0 auto}
+  .page.active{display:block}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:16px}
+  .card-title{font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--text3);margin-bottom:14px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:10px 18px;border-radius:8px;border:none;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s}
+  .btn-primary{background:var(--green);color:#000}.btn-primary:hover{background:#16a34a}
+  .btn-danger{background:var(--red);color:#fff}.btn-danger:hover{background:#b91c1c}
+  .btn-ghost{background:var(--surface2);color:var(--text);border:1px solid var(--border)}.btn-ghost:hover{border-color:var(--text2)}
+  .btn-gold{background:var(--gold);color:#000}.btn-gold:hover{background:#d97706}
+  .btn-sm{padding:6px 12px;font-size:13px}.btn-block{width:100%}
+  input,select,textarea{background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:8px;padding:10px 14px;font-size:14px;font-family:inherit;width:100%;transition:border-color .15s}
+  input:focus,select:focus{outline:none;border-color:var(--green)}
+  label{display:block;font-size:13px;color:var(--text2);margin-bottom:6px;font-weight:500}
+  .form-group{margin-bottom:14px}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .day-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-bottom:16px}
+  .day-cell{aspect-ratio:1;border-radius:10px;border:1px solid var(--border);background:var(--surface2);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:all .15s;padding:4px}
+  .day-cell:hover{border-color:var(--green)}
+  .day-cell.voted{background:var(--green-dim);border-color:var(--green)}
+  .day-cell.has-votes{border-color:var(--gold)}
+  .day-cell.top-pick{background:var(--gold-dim);border-color:var(--gold)}
+  .day-cell .day-name{font-size:9px;color:var(--text3)}
+  .day-cell .day-num{font-size:16px;font-weight:700;line-height:1}
+  .day-cell .vote-count{font-size:10px;background:var(--gold);color:#000;border-radius:10px;padding:1px 5px;font-weight:700;margin-top:2px}
+  .day-cell .vote-count.my-vote{background:var(--green)}
+  .day-cell.empty{opacity:0;cursor:default;pointer-events:none}
+  .voter-item{display:flex;align-items:center;justify-content:space-between;background:var(--surface2);border-radius:8px;padding:10px 14px;margin-bottom:6px}
+  .voter-tag{font-size:11px;background:var(--blue-dim);color:var(--blue);padding:2px 8px;border-radius:10px;border:1px solid var(--blue);margin:2px}
+  .session-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:16px}
+  .session-date{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--text3)}
+  .session-status{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;padding:4px 10px;border-radius:20px}
+  .status-live{background:var(--red-dim);color:var(--red)}
+  .status-ended{background:var(--surface2);color:var(--text3)}
+  .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  .stats-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+  .stat-box{background:var(--surface2);border-radius:10px;padding:14px;text-align:center;border:1px solid var(--border)}
+  .stat-val{font-family:'IBM Plex Mono',monospace;font-size:20px;font-weight:700}
+  .stat-label{font-size:11px;color:var(--text3);margin-top:2px}
+  .log-list{display:flex;flex-direction:column;gap:6px}
+  .log-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;padding:8px 0;border-bottom:1px solid var(--border)}
+  .log-item:last-child{border-bottom:none}
+  .log-time{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--text3);min-width:50px}
+  .log-who{font-weight:600;color:var(--blue)}
+  .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;align-items:center;justify-content:center;padding:20px}
+  .modal-overlay.open{display:flex}
+  .modal{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:28px;width:100%;max-width:360px}
+  .modal h2{font-size:18px;margin-bottom:6px}
+  .modal p{color:var(--text2);font-size:14px;margin-bottom:20px}
+  .pin-dots{display:flex;gap:10px;justify-content:center;margin-bottom:20px}
+  .pin-dot{width:14px;height:14px;border-radius:50%;border:2px solid var(--border);transition:all .15s}
+  .pin-dot.filled{background:var(--green);border-color:var(--green)}
+  .pin-keypad{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px}
+  .pin-key{background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:10px;padding:14px;font-size:18px;font-weight:600;cursor:pointer;font-family:'IBM Plex Mono',monospace;transition:all .1s}
+  .pin-key:hover{border-color:var(--green);background:var(--green-dim)}
+  .pin-key:active{transform:scale(.96)}
+  .summary-box{background:var(--surface2);border-radius:10px;padding:16px;font-family:'IBM Plex Mono',monospace;font-size:13px;white-space:pre-wrap;line-height:1.7;border:1px solid var(--border);margin-bottom:12px}
+  .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--surface);border:1px solid var(--green);color:var(--green);padding:10px 20px;border-radius:30px;font-size:14px;font-weight:600;z-index:300;opacity:0;transition:opacity .2s;pointer-events:none;white-space:nowrap}
+  .toast.show{opacity:1}
+  .alert{padding:12px 16px;border-radius:8px;font-size:13px;margin-bottom:14px}
+  .alert-warning{background:var(--gold-dim);color:var(--gold);border:1px solid var(--gold)}
+  .alert-success{background:var(--green-dim);color:var(--green);border:1px solid var(--green)}
+  .alert-error{background:var(--red-dim);color:var(--red);border:1px solid var(--red)}
+  .empty-state{text-align:center;padding:40px 20px;color:var(--text3)}
+  .empty-state .emoji{font-size:40px;margin-bottom:10px}
+  .flex{display:flex}.gap-8{gap:8px}.items-center{align-items:center}.justify-between{justify-content:space-between}
+  .mb-12{margin-bottom:12px}.mb-16{margin-bottom:16px}
+  @media(max-width:400px){.day-cell .day-num{font-size:13px}.form-row{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 
-<!-- Toast -->
 <div class="toast" id="toast"></div>
 
 <!-- PIN Modal -->
@@ -362,11 +105,9 @@
   <div class="modal">
     <h2 id="pinTitle">🔐 ยืนยันตัวตน</h2>
     <p id="pinDesc">กรอก PIN เพื่อเข้าใช้งาน</p>
-    <div class="pin-dots" id="pinDots">
-      <div class="pin-dot" id="d0"></div>
-      <div class="pin-dot" id="d1"></div>
-      <div class="pin-dot" id="d2"></div>
-      <div class="pin-dot" id="d3"></div>
+    <div class="pin-dots">
+      <div class="pin-dot" id="d0"></div><div class="pin-dot" id="d1"></div>
+      <div class="pin-dot" id="d2"></div><div class="pin-dot" id="d3"></div>
     </div>
     <div class="pin-keypad">
       <button class="pin-key" onclick="pinKey('1')">1</button>
@@ -378,7 +119,7 @@
       <button class="pin-key" onclick="pinKey('7')">7</button>
       <button class="pin-key" onclick="pinKey('8')">8</button>
       <button class="pin-key" onclick="pinKey('9')">9</button>
-      <button class="pin-key del" onclick="pinKey('del')">⌫</button>
+      <button class="pin-key" onclick="pinKey('del')" style="font-size:14px">⌫</button>
       <button class="pin-key" onclick="pinKey('0')">0</button>
       <button class="pin-key" onclick="closeModal()" style="font-size:13px">ยกเลิก</button>
     </div>
@@ -391,13 +132,16 @@
   <div class="logo">
     <div class="logo-chips">
       <div class="chip" style="background:#ef4444"></div>
-      <div class="chip" style="background:#1f2937; margin-left:-6px"></div>
-      <div class="chip" style="background:#2563eb; margin-left:-6px"></div>
-      <div class="chip" style="background:#f0f0f0; margin-left:-6px"></div>
+      <div class="chip" style="background:#1f2937;margin-left:-6px"></div>
+      <div class="chip" style="background:#2563eb;margin-left:-6px"></div>
+      <div class="chip" style="background:#f0f0f0;margin-left:-6px"></div>
     </div>
     <h1>Poker <span>Night</span></h1>
   </div>
-  <div class="header-badge" id="sessionBadge">ไม่มี Session</div>
+  <div class="header-badge">
+    <span class="sync-dot" id="syncDot"></span>
+    <span id="sessionBadge">กำลังเชื่อมต่อ...</span>
+  </div>
 </div>
 
 <!-- Nav -->
@@ -408,120 +152,61 @@
   <button onclick="showPage('settings')">⚙️ ตั้งค่า</button>
 </div>
 
-<!-- ══════════════════════════════════════ -->
-<!--  PAGE: SCHEDULE                        -->
-<!-- ══════════════════════════════════════ -->
+<!-- PAGE: SCHEDULE -->
 <div class="page active" id="page-schedule">
-
   <div class="card">
     <div class="card-title">📅 โหวตวันเล่น</div>
-
-    <!-- Member picker -->
-    <div id="noMembersWarning" class="alert alert-warning" style="display:none">
-      ⚠️ Host ยังไม่ได้เพิ่มรายชื่อสมาชิก — ไปที่ ⚙️ ตั้งค่า แล้วใส่รายชื่อก่อนนะครับ
-    </div>
-
+    <div id="noMembersWarning" class="alert alert-warning" style="display:none">⚠️ Host ยังไม่ได้เพิ่มรายชื่อสมาชิก — ไปที่ ⚙️ ตั้งค่า</div>
     <div id="memberPickerWrap" class="form-group">
       <label>คุณคือใคร?</label>
-      <select id="voterName" onchange="renderSchedule()">
-        <option value="">— เลือกชื่อ —</option>
-      </select>
+      <select id="voterName" onchange="renderSchedule()"><option value="">— เลือกชื่อ —</option></select>
     </div>
-
-    <p style="font-size:13px; color:var(--text2); margin-bottom:12px;">
-      เลือกวันที่สะดวกเล่นได้เลย (เลือกได้หลายวัน)
-    </p>
-
+    <p style="font-size:13px;color:var(--text2);margin-bottom:12px">เลือกวันที่สะดวกเล่นได้เลย (เลือกได้หลายวัน)</p>
     <div class="day-grid" id="dayGrid"></div>
-
     <div class="flex gap-8">
       <button class="btn btn-primary" style="flex:1" onclick="submitVote()">✅ ยืนยันตารางของฉัน</button>
       <button class="btn btn-ghost btn-sm" onclick="clearMyVote()">ล้าง</button>
     </div>
   </div>
-
   <div class="card">
     <div class="card-title">👥 ใครสะดวกวันไหนบ้าง</div>
-    <div id="voterListEl">
-      <div class="empty-state">
-        <div class="emoji">🃏</div>
-        <div>ยังไม่มีคนโหวต</div>
-      </div>
-    </div>
+    <div id="voterListEl"><div class="empty-state"><div class="emoji">🃏</div><div>ยังไม่มีคนโหวต</div></div></div>
   </div>
-
   <div class="card">
     <div class="card-title">🏆 วันที่ได้รับความนิยมสูงสุด</div>
-    <div id="topDaysEl">
-      <div class="empty-state">
-        <div class="emoji">📅</div>
-        <div>รอผลโหวต</div>
-      </div>
-    </div>
+    <div id="topDaysEl"><div class="empty-state"><div class="emoji">📅</div><div>รอผลโหวต</div></div></div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════ -->
-<!--  PAGE: SESSION / BUY-IN               -->
-<!-- ══════════════════════════════════════ -->
+<!-- PAGE: SESSION -->
 <div class="page" id="page-session">
-
-  <!-- No session yet -->
   <div id="noSession">
     <div class="card">
       <div class="card-title">🃏 เริ่ม Session ใหม่</div>
       <div class="alert alert-warning">ต้องเป็น Host เพื่อสร้าง Session และตั้ง PIN</div>
-
-      <div class="form-group">
-        <label>วันที่จัดเกม</label>
-        <input type="date" id="newSessionDate">
-      </div>
-      <div class="form-group">
-        <label>Buy-in มาตรฐาน (บาท)</label>
-        <input type="number" id="newBuyin" placeholder="500" value="500">
-      </div>
+      <div class="form-group"><label>วันที่จัดเกม</label><input type="date" id="newSessionDate"></div>
+      <div class="form-group"><label>Buy-in มาตรฐาน (บาท)</label><input type="number" id="newBuyin" value="500"></div>
       <div class="form-row">
-        <div class="form-group">
-          <label>🔐 PIN Host (4 หลัก)</label>
-          <input type="password" id="newHostPin" maxlength="4" placeholder="••••" inputmode="numeric">
-        </div>
-        <div class="form-group">
-          <label>🔑 PIN Co-host (4 หลัก)</label>
-          <input type="password" id="newCohostPin" maxlength="4" placeholder="••••" inputmode="numeric">
-        </div>
+        <div class="form-group"><label>🔐 PIN Host (4 หลัก)</label><input type="password" id="newHostPin" maxlength="4" placeholder="••••" inputmode="numeric"></div>
+        <div class="form-group"><label>🔑 PIN Co-host (4 หลัก)</label><input type="password" id="newCohostPin" maxlength="4" placeholder="••••" inputmode="numeric"></div>
       </div>
-      <button class="btn btn-primary btn-block" onclick="createSession()">
-        🃏 สร้าง Session
-      </button>
+      <button class="btn btn-primary btn-block" onclick="createSession()">🃏 สร้าง Session</button>
     </div>
   </div>
 
-  <!-- Active session -->
   <div id="activeSession" style="display:none">
-
     <div class="card">
       <div class="session-header">
         <div>
-          <div style="font-size:18px; font-weight:700; margin-bottom:4px" id="sessionDateDisplay"></div>
+          <div style="font-size:18px;font-weight:700;margin-bottom:4px" id="sessionDateDisplay"></div>
           <div class="session-date" id="sessionInfoDisplay"></div>
         </div>
-        <div id="sessionStatusBadge" class="session-status status-live">
-          <div class="dot"></div> กำลังเล่น
-        </div>
+        <div id="sessionStatusBadge" class="session-status status-live"><div class="dot"></div> กำลังเล่น</div>
       </div>
-
-      <div class="stats-row" id="statsRow" style="grid-template-columns:1fr 1fr">
-        <div class="stat-box">
-          <div class="stat-val text-green mono" id="statTotal">฿0</div>
-          <div class="stat-label">Buy-in รวม</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-val text-blue mono" id="statCount">0</div>
-          <div class="stat-label">จำนวน Buy-in</div>
-        </div>
+      <div class="stats-row">
+        <div class="stat-box"><div class="stat-val text-green" style="font-family:'IBM Plex Mono',monospace" id="statTotal">฿0</div><div class="stat-label">Buy-in รวม</div></div>
+        <div class="stat-box"><div class="stat-val text-blue" style="font-family:'IBM Plex Mono',monospace" id="statCount">0</div><div class="stat-label">จำนวน Buy-in</div></div>
       </div>
-
-      <!-- Auth section -->
       <div id="notAuthed">
         <div class="alert alert-warning">🔐 กรอก PIN เพื่อจด Buy-in</div>
         <div class="flex gap-8">
@@ -529,124 +214,84 @@
           <button class="btn btn-ghost" style="flex:1" onclick="openPin('cohost')">เข้าสู่ระบบ (Co-host)</button>
         </div>
       </div>
-
       <div id="authedSection" style="display:none">
         <div class="alert alert-success" id="authedBadge">✅ เข้าระบบแล้ว</div>
-
         <div class="card-title" style="margin-top:4px">บันทึก Buy-in</div>
-
-        <!-- Inline entry row -->
-        <div style="display:flex; gap:8px; align-items:flex-end; margin-bottom:10px">
+        <div style="display:flex;gap:8px;align-items:flex-end;margin-bottom:10px">
           <div style="flex:1.4">
-            <label style="display:block; font-size:12px; color:var(--text2); margin-bottom:5px; font-weight:500">ชื่อผู้เล่น</label>
-            <select id="biName" style="width:100%">
-              <option value="">— เลือกชื่อ —</option>
-            </select>
+            <label style="font-size:12px;color:var(--text2);margin-bottom:5px;display:block;font-weight:500">ชื่อผู้เล่น</label>
+            <select id="biName" style="width:100%"><option value="">— เลือกชื่อ —</option></select>
           </div>
           <div style="flex:1">
-            <label style="display:block; font-size:12px; color:var(--text2); margin-bottom:5px; font-weight:500">ยอด (บาท)</label>
-            <input type="number" id="biAmount" placeholder="500" style="width:100%"
-              onkeydown="if(event.key==='Enter') addBuyin()">
+            <label style="font-size:12px;color:var(--text2);margin-bottom:5px;display:block;font-weight:500">ยอด (บาท)</label>
+            <input type="number" id="biAmount" placeholder="500" style="width:100%" onkeydown="if(event.key==='Enter')addBuyin()">
           </div>
-          <button class="btn btn-primary" onclick="addBuyin()" style="padding:10px 14px; flex-shrink:0">➕</button>
+          <button class="btn btn-primary" onclick="addBuyin()" style="padding:10px 14px;flex-shrink:0">➕</button>
         </div>
-
-        <div style="display:flex; justify-content:flex-end; margin-bottom:12px">
+        <div style="display:flex;justify-content:flex-end;margin-bottom:12px">
           <button class="btn btn-ghost btn-sm" onclick="lockSession()">🔒 ออกจากระบบ</button>
         </div>
       </div>
     </div>
 
-    <!-- Buy-in feed list -->
     <div class="card" style="padding:16px">
       <div class="flex items-center justify-between mb-12">
         <div class="card-title" style="margin-bottom:0">รายการ Buy-in</div>
-        <div id="biCountBadge" style="font-size:12px; color:var(--text3)"></div>
+        <div id="biCountBadge" style="font-size:12px;color:var(--text3)"></div>
       </div>
-      <div id="buyinListEl">
-        <div class="empty-state" style="padding:20px">
-          <div>ยังไม่มีรายการ</div>
-        </div>
-      </div>
+      <div id="buyinListEl"><div class="empty-state" style="padding:20px"><div>ยังไม่มีรายการ</div></div></div>
     </div>
 
-    <!-- Log -->
     <div class="card">
       <div class="card-title">📝 ประวัติการทำรายการ</div>
-      <div class="log-list" id="logListEl">
-        <div style="font-size:13px; color:var(--text3)">ยังไม่มีรายการ</div>
-      </div>
+      <div class="log-list" id="logListEl"><div style="font-size:13px;color:var(--text3)">ยังไม่มีรายการ</div></div>
     </div>
 
-    <div style="display:flex; gap:8px; margin-top:4px">
+    <div style="display:flex;gap:8px;margin-top:4px">
       <button class="btn btn-ghost" style="flex:1" onclick="openPin('end')">🏁 จบเกม</button>
     </div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════ -->
-<!--  PAGE: SUMMARY                         -->
-<!-- ══════════════════════════════════════ -->
+<!-- PAGE: SUMMARY -->
 <div class="page" id="page-summary">
-  <div id="noSummary">
-    <div class="empty-state">
-      <div class="emoji">📊</div>
-      <div style="margin-bottom:8px">ยังไม่มีข้อมูล</div>
-      <div style="font-size:13px">สร้าง Session และเพิ่ม Buy-in ก่อนนะครับ</div>
-    </div>
-  </div>
+  <div id="noSummary"><div class="empty-state"><div class="emoji">📊</div><div style="margin-bottom:8px">ยังไม่มีข้อมูล</div><div style="font-size:13px">สร้าง Session และเพิ่ม Buy-in ก่อนนะครับ</div></div></div>
   <div id="summaryContent" style="display:none">
-
-    <!-- Stats -->
     <div class="card">
       <div class="card-title">📊 ภาพรวมวันนี้</div>
-      <div id="summaryStats" class="stats-row mb-16" style="grid-template-columns:1fr 1fr"></div>
-      <div id="summarySessionInfo" style="font-size:13px; color:var(--text2)"></div>
+      <div id="summaryStats" class="stats-row mb-16"></div>
+      <div id="summarySessionInfo" style="font-size:13px;color:var(--text2)"></div>
     </div>
-
-    <!-- Main buy-in breakdown table -->
     <div class="card" style="padding:16px 12px">
       <div class="flex items-center justify-between mb-12">
         <div class="card-title" style="margin-bottom:0">💰 ตาราง Buy-in รายคน</div>
-        <div style="font-size:11px; color:var(--text3)">ทุกคนดูได้</div>
+        <div style="font-size:11px;color:var(--text3)">ทุกคนดูได้ · Real-time</div>
       </div>
-      <div style="overflow-x:auto; -webkit-overflow-scrolling:touch">
-        <table id="buyinBreakdownTable" style="width:100%; border-collapse:collapse; min-width:320px"></table>
+      <div style="overflow-x:auto;-webkit-overflow-scrolling:touch">
+        <table id="buyinBreakdownTable" style="width:100%;border-collapse:collapse;min-width:320px"></table>
       </div>
     </div>
-
-    <!-- Share text -->
     <div class="card">
       <div class="card-title">📋 ข้อความสรุปส่งกลุ่ม</div>
       <div class="summary-box" id="summaryText"></div>
       <button class="btn btn-primary btn-block" onclick="copySummary()">📋 คัดลอกส่ง LINE / Facebook</button>
     </div>
-
   </div>
 </div>
 
-<!-- ══════════════════════════════════════ -->
-<!--  PAGE: SETTINGS                        -->
-<!-- ══════════════════════════════════════ -->
+<!-- PAGE: SETTINGS -->
 <div class="page" id="page-settings">
   <div class="card">
     <div class="card-title">⚙️ ข้อมูลกลุ่ม</div>
-    <div class="form-group">
-      <label>ชื่อกลุ่ม</label>
-      <input type="text" id="groupName" placeholder="เช่น กลุ่มเพื่อนมหา..." value="Poker Night Gang">
-    </div>
+    <div class="form-group"><label>ชื่อกลุ่ม</label><input type="text" id="groupName" placeholder="เช่น กลุ่มเพื่อนมหา..."></div>
     <button class="btn btn-primary btn-block" onclick="saveSettings()">💾 บันทึก</button>
   </div>
-
   <div class="card">
     <div class="card-title">👥 รายชื่อสมาชิก (Host only)</div>
     <div id="memberListDisplay" style="margin-bottom:14px"></div>
     <div id="memberEditSection" style="display:none">
       <div class="alert alert-success">✅ แก้ไขรายชื่อได้แล้ว</div>
-      <div class="form-group">
-        <label>รายชื่อสมาชิก (ใส่ทีละบรรทัด)</label>
-        <textarea id="memberList" rows="5" placeholder="โจ&#10;แบงก์&#10;ปั้น&#10;มาร์ค" style="resize:vertical"></textarea>
-      </div>
+      <div class="form-group"><label>รายชื่อสมาชิก (ใส่ทีละบรรทัด)</label><textarea id="memberList" rows="5" placeholder="โจ&#10;แบงก์&#10;ปั้น&#10;มาร์ค" style="resize:vertical"></textarea></div>
       <div class="flex gap-8">
         <button class="btn btn-primary" style="flex:1" onclick="saveMemberList()">💾 บันทึกรายชื่อ</button>
         <button class="btn btn-ghost btn-sm" onclick="lockMemberEdit()">🔒 ล็อค</button>
@@ -656,777 +301,442 @@
       <button class="btn btn-ghost btn-block" onclick="requestMemberEdit()">🔐 แก้ไขรายชื่อ (ต้องใช้ PIN Host)</button>
     </div>
   </div>
-
   <div class="card">
     <div class="card-title">🗓️ เดือนที่โหวต</div>
-    <div class="form-group">
-      <label>แสดงปฏิทินเดือน</label>
-      <input type="month" id="pollMonth">
-    </div>
+    <div class="form-group"><label>แสดงปฏิทินเดือน</label><input type="month" id="pollMonth"></div>
     <button class="btn btn-ghost btn-block" onclick="changeMonth()">เปลี่ยนเดือน</button>
   </div>
-
   <div class="card">
     <div class="card-title">⚠️ จัดการ Session</div>
     <button class="btn btn-danger btn-block" onclick="requestResetSession()">🗑️ ลบ Session ปัจจุบัน</button>
-    <div style="font-size:12px; color:var(--text3); margin-top:8px; text-align:center">
-      Host เท่านั้นที่ลบได้ — ข้อมูล Buy-in จะหายถาวร
-    </div>
+    <div style="font-size:12px;color:var(--text3);margin-top:8px;text-align:center">Host เท่านั้นที่ลบได้ — ข้อมูล Buy-in จะหายถาวร</div>
   </div>
 </div>
 
-<script>
-// ════════════════════════════════
-//  STATE
-// ════════════════════════════════
+<!-- ══════════════════════════════════════════════
+     FIREBASE — real-time sync for all users
+     ══════════════════════════════════════════════ -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+import {
+  getFirestore, doc, setDoc, updateDoc, deleteDoc, onSnapshot,
+  collection, addDoc, getDocs, serverTimestamp, query, orderBy
+} from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
+/* ── Config ── */
+const app = initializeApp({
+  apiKey: "AIzaSyB-JcxM2ro2_NC2fex-blQHsOriZiNDUXA",
+  authDomain: "poker-night-b3ff8.firebaseapp.com",
+  projectId: "poker-night-b3ff8",
+  storageBucket: "poker-night-b3ff8.firebasestorage.app",
+  messagingSenderId: "971194027073",
+  appId: "1:971194027073:web:cb1a82b5488afc93f74ac0"
+});
+const db = getFirestore(app);
+
+/* ── Refs ── */
+const settingsRef = doc(db, 'poker', 'settings');
+const pollRef     = doc(db, 'poker', 'poll');
+const sessionRef  = doc(db, 'poker', 'session');
+const buyinsCol   = collection(db, 'poker', 'session', 'buyins');
+
+/* ── Local state ── */
 let state = {
   groupName: 'Poker Night Gang',
   members: [],
-  poll: {
-    month: null,   // YYYY-MM
-    votes: {}      // { "YYYY-MM-DD": ["name", ...] }
-  },
-  session: null,   // { date, buyinAmount, rake, hostPin, cohostPin, buyins:[...], log:[...], ended }
-  currentRole: null // 'host' | 'cohost' | null
+  pollMonth: null,
+  pollVotes: {},
+  session: null,
+  buyins: [],
+  currentRole: null
 };
 
-function save() {
-  try { localStorage.setItem('pkn_state', JSON.stringify(state)); } catch(e) {}
-}
-function load() {
-  try {
-    const d = localStorage.getItem('pkn_state');
-    if (d) state = JSON.parse(d);
-  } catch(e) {}
-}
+/* ── Helpers ── */
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function currentYM(){ const n=new Date(); return `${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}`; }
+function setOnline(ok){ document.getElementById('syncDot').className='sync-dot'+(ok?' live':''); }
 
-// ════════════════════════════════
-//  NAVIGATION
-// ════════════════════════════════
-function showPage(name) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
-  document.getElementById('page-' + name).classList.add('active');
-  const idx = ['schedule','session','summary','settings'].indexOf(name);
-  document.querySelectorAll('.nav button')[idx].classList.add('active');
-  if (name === 'schedule') renderSchedule();
-  if (name === 'session') renderSession();
-  if (name === 'summary') renderSummary();
-  if (name === 'settings') renderMemberListDisplay();
-}
+window.toast = function(msg){
+  const el=document.getElementById('toast'); el.textContent=msg; el.classList.add('show');
+  setTimeout(()=>el.classList.remove('show'),2200);
+};
 
-// ════════════════════════════════
-//  TOAST
-// ════════════════════════════════
-function toast(msg) {
-  const el = document.getElementById('toast');
-  el.textContent = msg;
-  el.classList.add('show');
-  setTimeout(() => el.classList.remove('show'), 2200);
-}
+/* ── Navigation ── */
+window.showPage = function(name){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
+  ['schedule','session','summary','settings'].forEach((n,i)=>{ if(n===name) document.querySelectorAll('.nav button')[i].classList.add('active'); });
+  if(name==='schedule') renderSchedule();
+  if(name==='session')  renderSession();
+  if(name==='summary')  renderSummary();
+  if(name==='settings') renderMemberListDisplay();
+};
 
-// ════════════════════════════════
-//  PIN MODAL
-// ════════════════════════════════
-let pinBuffer = '';
-let pinCallback = null;
+/* ══════════════════
+   PIN MODAL
+══════════════════ */
+let pinBuf='', pinCb=null;
 
-function openPin(mode) {
-  pinBuffer = '';
-  updatePinDots();
-  document.getElementById('pinError').style.display = 'none';
+window.openPin = function(mode){
+  pinBuf=''; updateDots();
+  document.getElementById('pinError').style.display='none';
+  const s=state.session;
+  const cfg={
+    host:      ['🔐 PIN Host',     'กรอก PIN Host เพื่อจด Buy-in',      p=>{ if(s&&p===s.hostPin){state.currentRole='host';closeModal();renderSession();toast('✅ เข้าระบบ (Host)');}else showPinErr(); }],
+    cohost:    ['🔑 PIN Co-host',  'กรอก PIN Co-host เพื่อจด Buy-in',   p=>{ if(s&&p===s.cohostPin){state.currentRole='cohost';closeModal();renderSession();toast('✅ เข้าระบบ (Co-host)');}else showPinErr(); }],
+    end:       ['🏁 จบเกม',        'กรอก PIN Host เพื่อยืนยัน',          p=>{ if(s&&p===s.hostPin){closeModal();endGame();}else showPinErr(); }],
+    resetSession:['🗑️ ลบ Session','กรอก PIN Host เพื่อยืนยันลบ',        p=>{ if(s&&p===s.hostPin){closeModal();resetSession();}else showPinErr(); }],
+    editMembers: ['👥 แก้ไขรายชื่อ','กรอก PIN Host',                      p=>{ if(!s||p===s.hostPin){closeModal();unlockMemberEdit();}else showPinErr(); }]
+  };
+  const [title,desc,cb]=cfg[mode];
+  document.getElementById('pinTitle').textContent=title;
+  document.getElementById('pinDesc').textContent=desc;
+  pinCb=cb;
+  document.getElementById('pinModal').classList.add('open');
+};
+window.closeModal=()=>{ document.getElementById('pinModal').classList.remove('open'); pinBuf=''; pinCb=null; };
+window.pinKey=k=>{ if(k==='del')pinBuf=pinBuf.slice(0,-1); else{ if(pinBuf.length>=4)return; pinBuf+=k; } updateDots(); if(pinBuf.length===4&&pinCb)setTimeout(()=>pinCb(pinBuf),150); };
+function updateDots(){ for(let i=0;i<4;i++)document.getElementById('d'+i).classList.toggle('filled',i<pinBuf.length); }
+function showPinErr(){ document.getElementById('pinError').style.display='block'; pinBuf=''; updateDots(); }
 
-  if (mode === 'host') {
-    document.getElementById('pinTitle').textContent = '🔐 PIN Host';
-    document.getElementById('pinDesc').textContent = 'กรอก PIN ของ Host เพื่อเข้าจด Buy-in';
-    pinCallback = (pin) => {
-      if (!state.session) return;
-      if (pin === state.session.hostPin) {
-        state.currentRole = 'host';
-        closeModal(); renderSession();
-        toast('✅ เข้าระบบสำเร็จ (Host)');
-      } else { showPinError(); }
-    };
-  } else if (mode === 'cohost') {
-    document.getElementById('pinTitle').textContent = '🔑 PIN Co-host';
-    document.getElementById('pinDesc').textContent = 'กรอก PIN ของ Co-host เพื่อเข้าจด Buy-in';
-    pinCallback = (pin) => {
-      if (!state.session) return;
-      if (pin === state.session.cohostPin) {
-        state.currentRole = 'cohost';
-        closeModal(); renderSession();
-        toast('✅ เข้าระบบสำเร็จ (Co-host)');
-      } else { showPinError(); }
-    };
-  } else if (mode === 'end') {
-    document.getElementById('pinTitle').textContent = '🏁 จบเกม';
-    document.getElementById('pinDesc').textContent = 'กรอก PIN Host เพื่อยืนยันจบเกม';
-    pinCallback = (pin) => {
-      if (!state.session) return;
-      if (pin === state.session.hostPin) {
-        closeModal(); endGame();
-      } else { showPinError(); }
-    };
-  } else if (mode === 'resetSession') {
-    document.getElementById('pinTitle').textContent = '🗑️ ลบ Session';
-    document.getElementById('pinDesc').textContent = 'กรอก PIN Host เพื่อยืนยันการลบ Session ทั้งหมด';
-    pinCallback = (pin) => {
-      if (!state.session) return;
-      if (pin === state.session.hostPin) {
-        closeModal(); resetSession();
-      } else { showPinError(); }
-    };
-  } else if (mode === 'editMembers') {
-    document.getElementById('pinTitle').textContent = '👥 แก้ไขรายชื่อสมาชิก';
-    document.getElementById('pinDesc').textContent = 'กรอก PIN Host เพื่อแก้ไขรายชื่อได้';
-    pinCallback = (pin) => {
-      if (!state.session) {
-        // No session yet — allow with any input, or just unlock directly
-        closeModal(); unlockMemberEdit();
-      } else if (pin === state.session.hostPin) {
-        closeModal(); unlockMemberEdit();
-      } else { showPinError(); }
-    };
+/* ══════════════════
+   REAL-TIME LISTENERS
+══════════════════ */
+// Settings
+onSnapshot(settingsRef, snap=>{
+  if(snap.exists()){
+    const d=snap.data();
+    state.groupName = d.groupName||'Poker Night Gang';
+    state.members   = d.members||[];
+    state.pollMonth = d.pollMonth||currentYM();
   }
-}
+  setOnline(true);
+  document.getElementById('groupName').value = state.groupName;
+  document.getElementById('pollMonth').value  = state.pollMonth||currentYM();
+  renderMemberListDisplay();
+  renderSchedule();
+}, ()=>setOnline(false));
 
-function closeModal() {
-  document.getElementById('pinModal').classList.remove('open');
-  pinBuffer = '';
-  pinCallback = null;
-}
+// Poll votes
+onSnapshot(pollRef, snap=>{
+  state.pollVotes = snap.exists()?(snap.data().votes||{}):{};
+  renderSchedule();
+});
 
-function pinKey(k) {
-  if (k === 'del') {
-    pinBuffer = pinBuffer.slice(0,-1);
+// Session
+onSnapshot(sessionRef, snap=>{
+  if(snap.exists()){
+    state.session=snap.data();
+    document.getElementById('noSession').style.display='none';
+    document.getElementById('activeSession').style.display='block';
+    document.getElementById('sessionBadge').textContent=state.session.ended?'🏁 จบแล้ว':'🔴 Live';
   } else {
-    if (pinBuffer.length >= 4) return;
-    pinBuffer += k;
+    state.session=null;
+    document.getElementById('noSession').style.display='block';
+    document.getElementById('activeSession').style.display='none';
+    document.getElementById('sessionBadge').textContent='ไม่มี Session';
   }
-  updatePinDots();
-  if (pinBuffer.length === 4 && pinCallback) {
-    setTimeout(() => pinCallback(pinBuffer), 150);
-  }
-}
+  renderSession();
+  renderSummary();
+});
 
-function updatePinDots() {
-  for (let i=0; i<4; i++) {
-    document.getElementById('d'+i).classList.toggle('filled', i < pinBuffer.length);
-  }
-}
+// Buyins (real-time)
+onSnapshot(query(buyinsCol,orderBy('ts')), snap=>{
+  state.buyins=snap.docs.map(d=>({id:d.id,...d.data()}));
+  renderSession();
+  renderSummary();
+});
 
-function showPinError() {
-  document.getElementById('pinError').style.display = 'block';
-  pinBuffer = '';
-  updatePinDots();
-}
+/* ══════════════════
+   SCHEDULE / POLL
+══════════════════ */
+function renderSchedule(){
+  const ym=state.pollMonth||currentYM();
+  const votes=state.pollVotes;
+  const [y,m]=ym.split('-').map(Number);
+  const firstDay=new Date(y,m-1,1).getDay();
+  const daysInMonth=new Date(y,m,0).getDate();
+  const dayCounts={};
+  Object.entries(votes).forEach(([date,names])=>{ if(date.startsWith(ym))dayCounts[date]=names; });
+  const maxVotes=Math.max(0,...Object.values(dayCounts).map(v=>v.length));
 
-// ════════════════════════════════
-//  SCHEDULE / POLL
-// ════════════════════════════════
-function getMonthDays(ym) {
-  const [y, m] = ym.split('-').map(Number);
-  const firstDay = new Date(y, m-1, 1).getDay(); // 0=Sun
-  const daysInMonth = new Date(y, m, 0).getDate();
-  return { firstDay, daysInMonth, y, m };
-}
-
-function renderSchedule() {
   // Sync member dropdown
-  const members = state.members || [];
-  const sel = document.getElementById('voterName');
-  const prevVal = sel.value;
-  sel.innerHTML = '<option value="">— เลือกชื่อ —</option>';
-  members.forEach(m => {
-    const o = document.createElement('option');
-    o.value = m; o.textContent = m;
-    sel.appendChild(o);
-  });
-  if (members.includes(prevVal)) sel.value = prevVal;
+  const sel=document.getElementById('voterName');
+  const prev=sel.value;
+  sel.innerHTML='<option value="">— เลือกชื่อ —</option>';
+  (state.members||[]).forEach(m=>{ const o=document.createElement('option');o.value=m;o.textContent=m;sel.appendChild(o); });
+  if((state.members||[]).includes(prev))sel.value=prev;
+  document.getElementById('noMembersWarning').style.display=(state.members||[]).length===0?'block':'none';
+  document.getElementById('memberPickerWrap').style.display=(state.members||[]).length===0?'none':'block';
 
-  // Show/hide warning
-  document.getElementById('noMembersWarning').style.display = members.length === 0 ? 'block' : 'none';
-  document.getElementById('memberPickerWrap').style.display = members.length === 0 ? 'none' : 'block';
-  const ym = state.poll.month || currentYM();
-  const { firstDay, daysInMonth, y, m } = getMonthDays(ym);
-  const votes = state.poll.votes;
-
-  // Count votes per day
-  const dayCounts = {};
-  Object.entries(votes).forEach(([date, names]) => {
-    if (date.startsWith(ym)) dayCounts[date] = names;
-  });
-
-  // Find max votes
-  const maxVotes = Math.max(0, ...Object.values(dayCounts).map(v => v.length));
-
-  const dayNames = ['อา','จ','อ','พ','พฤ','ศ','ส'];
-  let html = '';
-
-  // Header
-  dayNames.forEach(d => {
-    html += `<div style="text-align:center; font-size:10px; color:var(--text3); padding-bottom:4px; font-weight:600">${d}</div>`;
-  });
-
-  // Empty cells
-  for (let i=0; i<firstDay; i++) html += `<div class="day-cell empty"></div>`;
-
-  const myVoterName = (document.getElementById('voterName')?.value || '').trim();
-
-  for (let d=1; d<=daysInMonth; d++) {
-    const dateStr = `${ym}-${String(d).padStart(2,'0')}`;
-    const dayVoters = dayCounts[dateStr] || [];
-    const count = dayVoters.length;
-    const isTopPick = maxVotes > 0 && count === maxVotes;
-    const myVoted = myVoterName && dayVoters.includes(myVoterName);
-
-    let cls = 'day-cell';
-    if (isTopPick && count > 0) cls += ' top-pick';
-    else if (count > 0) cls += ' has-votes';
-    if (myVoted) cls += ' voted';
-
-    const title = count > 0 ? dayVoters.join(', ') : '';
-
-    html += `<div class="${cls}" onclick="toggleDay('${dateStr}')" title="${title}">
+  const dayNames=['อา','จ','อ','พ','พฤ','ศ','ส'];
+  let html='';
+  dayNames.forEach(d=>{ html+=`<div style="text-align:center;font-size:10px;color:var(--text3);padding-bottom:4px;font-weight:600">${d}</div>`; });
+  for(let i=0;i<firstDay;i++) html+=`<div class="day-cell empty"></div>`;
+  const myName=document.getElementById('voterName').value;
+  for(let d=1;d<=daysInMonth;d++){
+    const dateStr=`${ym}-${String(d).padStart(2,'0')}`;
+    const dayVoters=dayCounts[dateStr]||[];
+    const count=dayVoters.length;
+    const isTop=maxVotes>0&&count===maxVotes;
+    const myVoted=myName&&dayVoters.includes(myName);
+    let cls='day-cell';
+    if(isTop&&count>0)cls+=' top-pick'; else if(count>0)cls+=' has-votes';
+    if(myVoted)cls+=' voted';
+    html+=`<div class="${cls}" onclick="toggleDay('${dateStr}')" title="${dayVoters.join(', ')}">
       <span class="day-name">${dayNames[new Date(y,m-1,d).getDay()]}</span>
       <span class="day-num">${d}</span>
-      ${count > 0 ? `<span class="vote-count${myVoted?' my-vote':''}">${count}</span>` : ''}
+      ${count>0?`<span class="vote-count${myVoted?' my-vote':''}">${count}</span>`:''}
     </div>`;
   }
-
-  document.getElementById('dayGrid').innerHTML = html;
+  document.getElementById('dayGrid').innerHTML=html;
 
   // Voter list
-  const voters = {};
-  Object.entries(votes).forEach(([date, names]) => {
-    if (!date.startsWith(ym)) return;
-    names.forEach(name => {
-      if (!voters[name]) voters[name] = [];
-      voters[name].push(date);
-    });
-  });
-
-  if (Object.keys(voters).length === 0) {
-    document.getElementById('voterListEl').innerHTML = `<div class="empty-state"><div class="emoji">🃏</div><div>ยังไม่มีคนโหวต</div></div>`;
-  } else {
-    const listHtml = Object.entries(voters).map(([name, dates]) => `
-      <div class="voter-item">
-        <div class="voter-name">${esc(name)}</div>
-        <div class="voter-days">
-          ${dates.map(d => `<span class="voter-tag">${d.split('-')[2]}/${d.split('-')[1]}</span>`).join('')}
-        </div>
-      </div>
-    `).join('');
-    document.getElementById('voterListEl').innerHTML = listHtml;
-  }
+  const voters={};
+  Object.entries(votes).forEach(([date,names])=>{ if(!date.startsWith(ym))return; names.forEach(n=>{ if(!voters[n])voters[n]=[]; voters[n].push(date); }); });
+  document.getElementById('voterListEl').innerHTML=Object.keys(voters).length===0
+    ?`<div class="empty-state"><div class="emoji">🃏</div><div>ยังไม่มีคนโหวต</div></div>`
+    :Object.entries(voters).map(([name,dates])=>`<div class="voter-item"><div style="font-weight:600">${esc(name)}</div><div style="display:flex;gap:4px;flex-wrap:wrap">${dates.map(d=>`<span class="voter-tag">${d.split('-')[2]}/${d.split('-')[1]}</span>`).join('')}</div></div>`).join('');
 
   // Top days
-  const sorted = Object.entries(dayCounts)
-    .sort((a,b) => b[1].length - a[1].length)
-    .slice(0, 3);
-
-  if (sorted.length === 0) {
-    document.getElementById('topDaysEl').innerHTML = `<div class="empty-state"><div class="emoji">📅</div><div>รอผลโหวต</div></div>`;
-  } else {
-    const medals = ['🥇','🥈','🥉'];
-    document.getElementById('topDaysEl').innerHTML = sorted.map(([date, names], i) => {
-      const [y,m,d] = date.split('-');
-      const dn = new Date(Number(y), Number(m)-1, Number(d));
-      const thDay = ['อาทิตย์','จันทร์','อังคาร','พุธ','พฤหัส','ศุกร์','เสาร์'][dn.getDay()];
-      return `<div class="voter-item" style="margin-bottom:6px">
-        <div>
-          <span style="font-size:18px">${medals[i]}</span>
-          <strong style="margin-left:8px">วัน${thDay} ${d}/${m}</strong>
-        </div>
-        <div style="font-size:13px; color:var(--green)">${names.length} คน</div>
-      </div>`;
-    }).join('');
-  }
+  const thDays=['อาทิตย์','จันทร์','อังคาร','พุธ','พฤหัส','ศุกร์','เสาร์'];
+  const sorted=Object.entries(dayCounts).sort((a,b)=>b[1].length-a[1].length).slice(0,3);
+  const medals=['🥇','🥈','🥉'];
+  document.getElementById('topDaysEl').innerHTML=sorted.length===0
+    ?`<div class="empty-state"><div class="emoji">📅</div><div>รอผลโหวต</div></div>`
+    :sorted.map(([date,names],i)=>{ const [yy,mm,dd]=date.split('-'); const dn=new Date(Number(yy),Number(mm)-1,Number(dd)); return `<div class="voter-item" style="margin-bottom:6px"><div><span style="font-size:18px">${medals[i]}</span><strong style="margin-left:8px">วัน${thDays[dn.getDay()]} ${dd}/${mm}</strong></div><div style="font-size:13px;color:var(--green)">${names.length} คน</div></div>`; }).join('');
 }
 
-function toggleDay(dateStr) {
-  const sel = document.getElementById('voterName');
-  const name = sel.value;
-  if (!name) { toast('⚠️ เลือกชื่อก่อนนะ'); return; }
-  if (!(state.members || []).includes(name)) { toast('⚠️ ไม่พบชื่อนี้ในลิสต์สมาชิก'); return; }
+window.toggleDay = async function(dateStr){
+  const name=document.getElementById('voterName').value;
+  if(!name){ toast('⚠️ เลือกชื่อก่อนนะ'); return; }
+  const votes={...state.pollVotes};
+  if(!votes[dateStr])votes[dateStr]=[];
+  const arr=[...votes[dateStr]];
+  const idx=arr.indexOf(name);
+  if(idx>=0)arr.splice(idx,1); else arr.push(name);
+  votes[dateStr]=arr;
+  await setDoc(pollRef,{votes},{merge:true});
+};
+window.submitVote=function(){ const name=document.getElementById('voterName').value; if(!name){toast('⚠️ เลือกชื่อก่อนนะ');return;} toast(`✅ บันทึกตารางของ ${name} แล้ว`); };
+window.clearMyVote=async function(){
+  const name=document.getElementById('voterName').value; if(!name)return;
+  const votes={...state.pollVotes};
+  Object.keys(votes).forEach(date=>{ votes[date]=(votes[date]||[]).filter(n=>n!==name); });
+  await setDoc(pollRef,{votes}); toast('🗑️ ลบตารางของคุณแล้ว');
+};
+window.changeMonth=async function(){
+  const m=document.getElementById('pollMonth').value; if(!m)return;
+  state.pollMonth=m;
+  await setDoc(settingsRef,{pollMonth:m},{merge:true}); toast('📅 เปลี่ยนเดือนแล้ว');
+};
 
-  if (!state.poll.votes[dateStr]) state.poll.votes[dateStr] = [];
-  const arr = state.poll.votes[dateStr];
-  const idx = arr.indexOf(name);
-  if (idx >= 0) arr.splice(idx, 1);
-  else arr.push(name);
-  save();
-  renderSchedule();
-}
-
-function submitVote() {
-  const name = document.getElementById('voterName').value;
-  if (!name) { toast('⚠️ เลือกชื่อก่อนนะ'); return; }
-  save();
-  toast(`✅ บันทึกตารางของ ${name} แล้ว`);
-}
-
-function clearMyVote() {
-  const name = document.getElementById('voterName').value;
-  if (!name) return;
-  Object.keys(state.poll.votes).forEach(date => {
-    state.poll.votes[date] = state.poll.votes[date].filter(n => n !== name);
-  });
-  save();
-  renderSchedule();
-  toast('🗑️ ลบตารางของคุณแล้ว');
-}
-
-function currentYM() {
-  const now = new Date();
-  return `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;
-}
-
-// ════════════════════════════════
-//  SESSION
-// ════════════════════════════════
-function createSession() {
-  const date = document.getElementById('newSessionDate').value;
-  const buyinAmount = Number(document.getElementById('newBuyin').value) || 500;
-  const hostPin = document.getElementById('newHostPin').value;
-  const cohostPin = document.getElementById('newCohostPin').value;
-
-  if (!date) { toast('⚠️ กรุณาเลือกวันที่'); return; }
-  if (hostPin.length !== 4) { toast('⚠️ PIN Host ต้องมี 4 หลัก'); return; }
-  if (cohostPin.length !== 4) { toast('⚠️ PIN Co-host ต้องมี 4 หลัก'); return; }
-  if (hostPin === cohostPin) { toast('⚠️ PIN Host และ Co-host ต้องต่างกัน'); return; }
-
-  state.session = {
-    date, buyinAmount,
-    hostPin, cohostPin,
-    buyins: [],
-    log: [],
-    ended: false
-  };
-  state.currentRole = null;
-  save();
-  renderSession();
+/* ══════════════════
+   SESSION
+══════════════════ */
+window.createSession=async function(){
+  const date=document.getElementById('newSessionDate').value;
+  const buyinAmount=Number(document.getElementById('newBuyin').value)||500;
+  const hostPin=document.getElementById('newHostPin').value;
+  const cohostPin=document.getElementById('newCohostPin').value;
+  if(!date){toast('⚠️ เลือกวันที่ก่อน');return;}
+  if(hostPin.length!==4){toast('⚠️ PIN Host ต้องมี 4 หลัก');return;}
+  if(cohostPin.length!==4){toast('⚠️ PIN Co-host ต้องมี 4 หลัก');return;}
+  if(hostPin===cohostPin){toast('⚠️ PIN ต้องต่างกัน');return;}
+  await setDoc(sessionRef,{date,buyinAmount,hostPin,cohostPin,ended:false,createdAt:serverTimestamp()});
+  state.currentRole=null;
   toast('🃏 สร้าง Session แล้ว!');
-}
+};
 
-function renderSession() {
-  const s = state.session;
+function renderSession(){
+  const s=state.session;
+  if(!s)return;
+  const [yy,mm,dd]=s.date.split('-');
+  const thDays=['อาทิตย์','จันทร์','อังคาร','พุธ','พฤหัส','ศุกร์','เสาร์'];
+  document.getElementById('sessionDateDisplay').textContent=`วัน${thDays[new Date(Number(yy),Number(mm)-1,Number(dd)).getDay()]} ${dd}/${mm}/${yy}`;
+  document.getElementById('sessionInfoDisplay').textContent=`Buy-in มาตรฐาน: ฿${s.buyinAmount.toLocaleString()}`;
+  const statusEl=document.getElementById('sessionStatusBadge');
+  if(s.ended){statusEl.className='session-status status-ended';statusEl.innerHTML='🏁 จบเกมแล้ว';}
+  else{statusEl.className='session-status status-live';statusEl.innerHTML='<div class="dot"></div> กำลังเล่น';}
 
-  if (!s) {
-    document.getElementById('noSession').style.display = 'block';
-    document.getElementById('activeSession').style.display = 'none';
-    document.getElementById('sessionBadge').textContent = 'ไม่มี Session';
-    return;
+  const buyins=state.buyins;
+  const totalBuyin=buyins.reduce((a,b)=>a+b.amount,0);
+  document.getElementById('statTotal').textContent='฿'+totalBuyin.toLocaleString();
+  document.getElementById('statCount').textContent=buyins.length;
+
+  const authed=!!state.currentRole&&!s.ended;
+  document.getElementById('notAuthed').style.display=(authed||s.ended)?'none':'block';
+  document.getElementById('authedSection').style.display=(authed&&!s.ended)?'block':'none';
+  if(authed){
+    document.getElementById('authedBadge').textContent=`✅ เข้าระบบในฐานะ ${state.currentRole==='host'?'👑 Host':'🤝 Co-host'}`;
+    const biSel=document.getElementById('biName');
+    const prev=biSel.value;
+    biSel.innerHTML='<option value="">— เลือกชื่อ —</option>';
+    (state.members||[]).forEach(m=>{ const o=document.createElement('option');o.value=m;o.textContent=m;biSel.appendChild(o); });
+    if((state.members||[]).includes(prev))biSel.value=prev;
+    document.getElementById('biAmount').value=s.buyinAmount;
   }
 
-  document.getElementById('noSession').style.display = 'none';
-  document.getElementById('activeSession').style.display = 'block';
-
-  // Header
-  const [y,m,d] = s.date.split('-');
-  const thDays = ['อาทิตย์','จันทร์','อังคาร','พุธ','พฤหัส','ศุกร์','เสาร์'];
-  const dn = new Date(Number(y), Number(m)-1, Number(d));
-  document.getElementById('sessionDateDisplay').textContent = `วัน${thDays[dn.getDay()]} ${d}/${m}/${y}`;
-  document.getElementById('sessionInfoDisplay').textContent = `Buy-in มาตรฐาน: ฿${s.buyinAmount.toLocaleString()}`;
-
-  const statusEl = document.getElementById('sessionStatusBadge');
-  if (s.ended) {
-    statusEl.className = 'session-status status-ended';
-    statusEl.innerHTML = '🏁 จบเกมแล้ว';
+  // Buy-in feed (newest first)
+  if(buyins.length===0){
+    document.getElementById('buyinListEl').innerHTML=`<div class="empty-state" style="padding:20px"><div>ยังไม่มีรายการ</div></div>`;
+    document.getElementById('biCountBadge').textContent='';
   } else {
-    statusEl.className = 'session-status status-live';
-    statusEl.innerHTML = '<div class="dot"></div> กำลังเล่น';
-  }
-  document.getElementById('sessionBadge').textContent = s.ended ? 'จบแล้ว' : '🔴 Live';
-
-  // Stats
-  const totalBuyin = s.buyins.reduce((a,b) => a + b.amount, 0);
-  document.getElementById('statTotal').textContent = '฿' + totalBuyin.toLocaleString();
-  document.getElementById('statCount').textContent = s.buyins.length;
-
-  // Auth state
-  const authed = !!state.currentRole && !s.ended;
-  document.getElementById('notAuthed').style.display = (authed || s.ended) ? 'none' : 'block';
-  document.getElementById('authedSection').style.display = (authed && !s.ended) ? 'block' : 'none';
-  if (authed) {
-    const roleLabel = state.currentRole === 'host' ? '👑 Host' : '🤝 Co-host';
-    document.getElementById('authedBadge').textContent = `✅ เข้าระบบในฐานะ ${roleLabel}`;
-
-    // Populate name dropdown from members list
-    const biNameSel = document.getElementById('biName');
-    const prevBiName = biNameSel.value;
-    biNameSel.innerHTML = '<option value="">— เลือกชื่อ —</option>';
-    (state.members || []).forEach(m => {
-      const o = document.createElement('option');
-      o.value = m; o.textContent = m;
-      biNameSel.appendChild(o);
-    });
-    if ((state.members || []).includes(prevBiName)) biNameSel.value = prevBiName;
-
-    document.getElementById('biAmount').placeholder = s.buyinAmount;
-    document.getElementById('biAmount').value = s.buyinAmount;
-  }
-
-  // Buy-in feed — each entry as a row: name | this buy-in | cumulative total
-  if (s.buyins.length === 0) {
-    document.getElementById('buyinListEl').innerHTML = `<div class="empty-state" style="padding:20px"><div>ยังไม่มีรายการ</div></div>`;
-    document.getElementById('biCountBadge').textContent = '';
-  } else {
-    // Build running totals as we walk through buyins in order
-    const runningTotal = {};
-    const uniqueNames = [];
-
-    const rows = s.buyins.map((b, idx) => {
-      if (!runningTotal[b.name]) { runningTotal[b.name] = 0; uniqueNames.push(b.name); }
-      runningTotal[b.name] += b.amount;
-      const isLatest = idx === s.buyins.length - 1;
-      return { ...b, runningTotal: runningTotal[b.name], idx, isLatest };
-    });
-
-    // Render newest first
-    const tdS = `padding:10px 10px; border-bottom:1px solid var(--border); vertical-align:middle;`;
-    let html = `<table style="width:100%; border-collapse:collapse">
+    const snap={};
+    const snapshots=buyins.map((b,i)=>{ if(!snap[b.name])snap[b.name]=0; snap[b.name]+=b.amount; return{...b,running:snap[b.name],num:i+1}; });
+    const uniqueNames=[...new Set(buyins.map(b=>b.name))];
+    const tdS='padding:10px;border-bottom:1px solid var(--border);vertical-align:middle;';
+    let html=`<table style="width:100%;border-collapse:collapse">
       <thead><tr>
-        <th style="padding:6px 10px; font-size:11px; color:var(--text3); text-transform:uppercase; letter-spacing:0.4px; border-bottom:2px solid var(--border); text-align:left">ชื่อ</th>
-        <th style="padding:6px 10px; font-size:11px; color:var(--text3); text-transform:uppercase; letter-spacing:0.4px; border-bottom:2px solid var(--border); text-align:right">Buy-in รอบนี้</th>
-        <th style="padding:6px 10px; font-size:11px; color:var(--text3); text-transform:uppercase; letter-spacing:0.4px; border-bottom:2px solid var(--border); text-align:right">ยอดรวมของเขา</th>
-        ${authed ? '<th style="padding:6px 10px; border-bottom:2px solid var(--border)"></th>' : ''}
+        <th style="padding:6px 10px;font-size:11px;color:var(--text3);text-transform:uppercase;border-bottom:2px solid var(--border);text-align:left">ชื่อ</th>
+        <th style="padding:6px 10px;font-size:11px;color:var(--text3);text-transform:uppercase;border-bottom:2px solid var(--border);text-align:right">รอบนี้</th>
+        <th style="padding:6px 10px;font-size:11px;color:var(--text3);text-transform:uppercase;border-bottom:2px solid var(--border);text-align:right">ยอดรวมของเขา</th>
+        ${authed?'<th style="padding:6px 10px;border-bottom:2px solid var(--border)"></th>':''}
       </tr></thead><tbody>`;
-
-    // Show in reverse (latest on top) but build cumulative snapshot at time of entry
-    // Re-compute snapshots for display newest-first
-    const snapshots = [];
-    const snap = {};
-    s.buyins.forEach((b, i) => {
-      if (!snap[b.name]) snap[b.name] = 0;
-      snap[b.name] += b.amount;
-      snapshots.push({ ...b, runningTotal: snap[b.name], entryNum: i + 1 });
-    });
-
-    [...snapshots].reverse().forEach((row, ri) => {
-      const isFirst = ri === 0;
-      const bg = isFirst ? 'background:var(--green-dim);' : (ri % 2 === 1 ? 'background:var(--surface2);' : '');
-      html += `<tr style="${bg}">
+    [...snapshots].reverse().forEach((row,ri)=>{
+      const isFirst=ri===0;
+      const bg=isFirst?'background:var(--green-dim);':(ri%2===1?'background:var(--surface2);':'');
+      html+=`<tr style="${bg}">
         <td style="${tdS}">
-          <span style="font-weight:700; font-size:14px">${esc(row.name)}</span>
-          <span style="font-size:11px; color:var(--text3); margin-left:6px">#${row.entryNum}</span>
-          ${isFirst ? '<span style="font-size:10px; background:var(--green); color:#000; border-radius:8px; padding:1px 6px; margin-left:4px; font-weight:700">ล่าสุด</span>' : ''}
+          <span style="font-weight:700;font-size:14px">${esc(row.name)}</span>
+          <span style="font-size:11px;color:var(--text3);margin-left:5px">#${row.num}</span>
+          ${isFirst?'<span style="font-size:10px;background:var(--green);color:#000;border-radius:8px;padding:1px 6px;margin-left:4px;font-weight:700">ล่าสุด</span>':''}
         </td>
-        <td style="${tdS} text-align:right; font-family:'IBM Plex Mono',monospace; font-size:15px; font-weight:600; color:var(--text)">
-          ฿${row.amount.toLocaleString()}
-        </td>
-        <td style="${tdS} text-align:right; font-family:'IBM Plex Mono',monospace; font-size:15px; font-weight:700; color:var(--green)">
-          ฿${row.runningTotal.toLocaleString()}
-        </td>
-        ${authed ? `<td style="${tdS} text-align:center"><button class="btn btn-ghost btn-sm" onclick="addMoreBuyin('${esc(row.name)}')" title="Re-buy ${esc(row.name)}">+1</button></td>` : ''}
+        <td style="${tdS}text-align:right;font-family:'IBM Plex Mono',monospace;font-size:15px;font-weight:600">฿${row.amount.toLocaleString()}</td>
+        <td style="${tdS}text-align:right;font-family:'IBM Plex Mono',monospace;font-size:15px;font-weight:700;color:var(--green)">฿${row.running.toLocaleString()}</td>
+        ${authed?`<td style="${tdS}text-align:center"><button class="btn btn-ghost btn-sm" onclick="addMoreBuyin('${esc(row.name)}')">+1</button></td>`:''}
       </tr>`;
     });
-
-    // Grand total footer
-    const grandTotal = s.buyins.reduce((a, b) => a + b.amount, 0);
-    html += `<tr style="border-top:2px solid var(--border)">
-      <td style="padding:10px 10px; font-size:12px; color:var(--text3); font-weight:600">${uniqueNames.length} คน / ${s.buyins.length} รายการ</td>
-      <td colspan="2" style="padding:10px 10px; text-align:right; font-family:'IBM Plex Mono',monospace; font-size:16px; font-weight:700; color:var(--gold)">฿${grandTotal.toLocaleString()}</td>
-      ${authed ? '<td></td>' : ''}
-    </tr>`;
-
-    html += '</tbody></table>';
-    document.getElementById('buyinListEl').innerHTML = html;
-    document.getElementById('biCountBadge').textContent = `${uniqueNames.length} คน`;
+    const grandTotal=buyins.reduce((a,b)=>a+b.amount,0);
+    html+=`<tr style="border-top:2px solid var(--border)">
+      <td style="padding:10px;font-size:12px;color:var(--text3);font-weight:600">${uniqueNames.length} คน / ${buyins.length} รายการ</td>
+      <td colspan="2" style="padding:10px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:16px;font-weight:700;color:var(--gold)">฿${grandTotal.toLocaleString()}</td>
+      ${authed?'<td></td>':''}
+    </tr></tbody></table>`;
+    document.getElementById('buyinListEl').innerHTML=html;
+    document.getElementById('biCountBadge').textContent=`${uniqueNames.length} คน`;
   }
 
   // Log
-  if (s.log.length === 0) {
-    document.getElementById('logListEl').innerHTML = `<div style="font-size:13px; color:var(--text3)">ยังไม่มีรายการ</div>`;
-  } else {
-    document.getElementById('logListEl').innerHTML = [...s.log].reverse().slice(0, 20).map(l => `
-      <div class="log-item">
-        <span class="log-time">${l.time}</span>
-        <span><span class="log-who">[${l.role}]</span> ${esc(l.msg)}</span>
-      </div>
-    `).join('');
-  }
+  const logs=buyins.slice(-15).reverse();
+  document.getElementById('logListEl').innerHTML=logs.length===0
+    ?`<div style="font-size:13px;color:var(--text3)">ยังไม่มีรายการ</div>`
+    :logs.map(l=>{ const t=l.ts?.toDate?l.ts.toDate():new Date(); const time=`${String(t.getHours()).padStart(2,'0')}:${String(t.getMinutes()).padStart(2,'0')}`; return `<div class="log-item"><span class="log-time">${time}</span><span><span class="log-who">[${esc(l.role||'?')}]</span> ${esc(l.name)} ฿${l.amount.toLocaleString()}</span></div>`; }).join('');
 }
 
-function addLog(msg) {
-  const now = new Date();
-  const time = `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
-  state.session.log.push({ time, role: state.currentRole === 'host' ? 'Host' : 'Co-host', msg });
-}
-
-function addBuyin() {
-  const nameSel = document.getElementById('biName');
-  const name = nameSel.value;
-  const amount = Number(document.getElementById('biAmount').value) || state.session.buyinAmount;
-  if (!name) { toast('⚠️ เลือกชื่อผู้เล่นก่อน'); return; }
-
-  state.session.buyins.push({ name, amount, rakeAmount: 0, ts: Date.now() });
-  addLog(`Buy-in: ${name} ฿${amount.toLocaleString()}`);
-  nameSel.value = '';
-  document.getElementById('biAmount').value = state.session.buyinAmount;
-  save();
-  renderSession();
+window.addBuyin=async function(){
+  const name=document.getElementById('biName').value;
+  const amount=Number(document.getElementById('biAmount').value)||state.session.buyinAmount;
+  if(!name){toast('⚠️ เลือกชื่อผู้เล่นก่อน');return;}
+  await addDoc(buyinsCol,{name,amount,role:state.currentRole,ts:serverTimestamp()});
+  document.getElementById('biName').value='';
+  document.getElementById('biAmount').value=state.session.buyinAmount;
   toast(`✅ ${name} buy-in ฿${amount.toLocaleString()}`);
-}
-
-function addMoreBuyin(name) {
-  const amount = state.session.buyinAmount;
-  state.session.buyins.push({ name, amount, rakeAmount: 0, ts: Date.now() });
-  addLog(`Re-buy: ${name} ฿${amount.toLocaleString()}`);
-  save();
-  renderSession();
-  toast(`✅ Re-buy ของ ${name} บันทึกแล้ว`);
-}
-
-function lockSession() {
-  state.currentRole = null;
-  renderSession();
-  toast('🔒 ออกจากระบบแล้ว');
-}
-
-function endGame() {
-  state.session.ended = true;
-  state.currentRole = null;
-  addLog('จบเกม');
-  save();
-  renderSession();
-  toast('🏁 จบเกมแล้ว! ดูสรุปได้ที่แท็บ "สรุป"');
-}
-
-// ════════════════════════════════
-//  SUMMARY
-// ════════════════════════════════
-function renderSummary() {
-  const s = state.session;
-  if (!s || s.buyins.length === 0) {
-    document.getElementById('noSummary').style.display = 'block';
-    document.getElementById('summaryContent').style.display = 'none';
-    return;
-  }
-  document.getElementById('noSummary').style.display = 'none';
-  document.getElementById('summaryContent').style.display = 'block';
-
-  const totalBuyin = s.buyins.reduce((a,b) => a + b.amount, 0);
-  const buyinCount = s.buyins.length;
-
-  // Date info
-  const [y,m,d] = s.date.split('-');
-  const thDays = ['อาทิตย์','จันทร์','อังคาร','พุธ','พฤหัส','ศุกร์','เสาร์'];
-  const dn = new Date(Number(y), Number(m)-1, Number(d));
-  const dayTh = thDays[dn.getDay()];
-  const groupName = state.groupName || 'Poker Night';
-
-  // Stats bar
-  const playerCount = [...new Set(s.buyins.map(b => b.name))].length;
-  document.getElementById('summaryStats').innerHTML = `
-    <div class="stat-box"><div class="stat-val text-green mono">฿${totalBuyin.toLocaleString()}</div><div class="stat-label">รวมทั้งหมด</div></div>
-    <div class="stat-box"><div class="stat-val text-blue mono">${playerCount} คน / ${buyinCount} ครั้ง</div><div class="stat-label">ผู้เล่น / Buy-in</div></div>
-  `;
-  document.getElementById('summarySessionInfo').innerHTML =
-    `<span style="color:var(--text3)">วัน${dayTh} ${d}/${m}/${y} &nbsp;·&nbsp; Buy-in มาตรฐาน ฿${s.buyinAmount.toLocaleString()}</span>`;
-
-  // ── Build per-player per-round breakdown ──
-  // Gather all unique names in order of first buy-in
-  const nameOrder = [];
-  s.buyins.forEach(b => { if (!nameOrder.includes(b.name)) nameOrder.push(b.name); });
-
-  // Build rounds per player: playerRounds[name] = [500, 500, 1000, ...]
-  const playerRounds = {};
-  nameOrder.forEach(name => { playerRounds[name] = []; });
-  s.buyins.forEach(b => { playerRounds[b.name].push(b.amount); });
-
-  const maxRounds = Math.max(...nameOrder.map(n => playerRounds[n].length));
-  const playerTotals = {};
-  nameOrder.forEach(n => {
-    playerTotals[n] = playerRounds[n].reduce((a,v) => a+v, 0);
-  });
-
-  // Sort by total descending
-  nameOrder.sort((a,b) => playerTotals[b] - playerTotals[a]);
-
-  // Column totals per round
-  const roundTotals = Array.from({length: maxRounds}, (_, ri) =>
-    nameOrder.reduce((sum, name) => sum + (playerRounds[name][ri] || 0), 0)
-  );
-
-  // ── Render table ──
-  const thStyle = `padding:8px 10px; font-size:11px; color:var(--text3); text-transform:uppercase;
-    letter-spacing:0.5px; border-bottom:2px solid var(--border); white-space:nowrap; text-align:center;`;
-  const tdBase = `padding:9px 10px; border-bottom:1px solid var(--border); font-size:14px;`;
-
-  let thead = `<thead><tr>`;
-  thead += `<th style="${thStyle} text-align:left">ชื่อ</th>`;
-  for (let r=1; r<=maxRounds; r++) thead += `<th style="${thStyle}">ครั้งที่ ${r}</th>`;
-  thead += `<th style="${thStyle} color:var(--green)">รวม</th>`;
-  thead += `</tr></thead>`;
-
-  let tbody = `<tbody>`;
-  nameOrder.forEach((name, ni) => {
-    const rowBg = ni % 2 === 0 ? '' : `background:var(--surface2);`;
-    tbody += `<tr style="${rowBg}">`;
-    tbody += `<td style="${tdBase} font-weight:700">${esc(name)}</td>`;
-    for (let r=0; r<maxRounds; r++) {
-      const amt = playerRounds[name][r];
-      if (amt !== undefined) {
-        tbody += `<td style="${tdBase} text-align:center; font-family:'IBM Plex Mono',monospace; color:var(--text)">฿${amt.toLocaleString()}</td>`;
-      } else {
-        tbody += `<td style="${tdBase} text-align:center; color:var(--text3)">—</td>`;
-      }
-    }
-    tbody += `<td style="${tdBase} text-align:center; font-family:'IBM Plex Mono',monospace;
-      font-weight:700; color:var(--green); background:var(--green-dim)">฿${playerTotals[name].toLocaleString()}</td>`;
-    tbody += `</tr>`;
-  });
-
-  // Round totals footer row
-  tbody += `<tr style="border-top:2px solid var(--border)">`;
-  tbody += `<td style="${tdBase} font-size:12px; color:var(--text3); font-weight:600">รวมต่อรอบ</td>`;
-  for (let r=0; r<maxRounds; r++) {
-    tbody += `<td style="${tdBase} text-align:center; font-family:'IBM Plex Mono',monospace;
-      font-size:12px; color:var(--text2)">฿${roundTotals[r].toLocaleString()}</td>`;
-  }
-  tbody += `<td style="${tdBase} text-align:center; font-family:'IBM Plex Mono',monospace;
-    font-weight:700; color:var(--gold); background:var(--gold-dim)">฿${totalBuyin.toLocaleString()}</td>`;
-  tbody += `</tr></tbody>`;
-
-  document.getElementById('buyinBreakdownTable').innerHTML = thead + tbody;
-
-  // ── Summary text for LINE ──
-  // Find max name length for alignment
-  const maxNameLen = Math.max(...nameOrder.map(n => n.length), 4);
-  const pad = (s, len) => s + ' '.repeat(Math.max(0, len - s.length));
-
-  let txt = `🃏 ${groupName}\n`;
-  txt += `📅 วัน${dayTh} ${d}/${m}/${y}\n`;
-  txt += `${'─'.repeat(30)}\n`;
-  txt += `💰 Buy-in มาตรฐาน: ฿${s.buyinAmount.toLocaleString()}\n`;
-  txt += `${'─'.repeat(30)}\n`;
-  nameOrder.forEach(name => {
-    const rounds = playerRounds[name];
-    const roundStr = rounds.map(a => `฿${a.toLocaleString()}`).join(' + ');
-    txt += `${pad(name, maxNameLen)}  ${roundStr} = ฿${playerTotals[name].toLocaleString()}\n`;
-  });
-  txt += `${'─'.repeat(30)}\n`;
-  txt += `💵 รวมทั้งหมด: ฿${totalBuyin.toLocaleString()}\n`;
-  txt += `👥 ผู้เล่น ${playerCount} คน  |  Buy-in ${buyinCount} ครั้ง\n`;
-  txt += `${'─'.repeat(30)}\n`;
-  txt += `${s.ended ? '🏁 จบเกมแล้ว' : '🟢 กำลังเล่นอยู่'}\n`;
-  txt += `📋 Poker Night App`;
-
-  document.getElementById('summaryText').textContent = txt;
-}
-
-function copySummary() {
-  const txt = document.getElementById('summaryText').textContent;
-  navigator.clipboard.writeText(txt).then(() => toast('📋 คัดลอกแล้ว! ไปวางใน LINE ได้เลย'))
-    .catch(() => {
-      // Fallback
-      const ta = document.createElement('textarea');
-      ta.value = txt; document.body.appendChild(ta);
-      ta.select(); document.execCommand('copy');
-      document.body.removeChild(ta);
-      toast('📋 คัดลอกแล้ว!');
-    });
-}
-
-// ════════════════════════════════
-//  SETTINGS
-// ════════════════════════════════
-function saveSettings() {
-  state.groupName = document.getElementById('groupName').value || 'Poker Night Gang';
-  save();
-  toast('💾 บันทึกแล้ว');
-}
-
-function requestMemberEdit() {
-  // If no session yet, no PIN to check — open directly
-  if (!state.session) { unlockMemberEdit(); return; }
-  openPin('editMembers');
-}
-
-function unlockMemberEdit() {
-  document.getElementById('memberEditSection').style.display = 'block';
-  document.getElementById('memberLockSection').style.display = 'none';
-  document.getElementById('memberList').value = (state.members || []).join('\n');
-}
-
-function lockMemberEdit() {
-  document.getElementById('memberEditSection').style.display = 'none';
-  document.getElementById('memberLockSection').style.display = 'block';
-}
-
-function saveMemberList() {
-  state.members = document.getElementById('memberList').value
-    .split('\n').map(s => s.trim()).filter(Boolean);
-  save();
-  renderMemberListDisplay();
-  lockMemberEdit();
-  renderSchedule();
-  toast(`✅ บันทึกรายชื่อ ${state.members.length} คนแล้ว`);
-}
-
-function renderMemberListDisplay() {
-  const members = state.members || [];
-  const el = document.getElementById('memberListDisplay');
-  if (!el) return;
-  if (members.length === 0) {
-    el.innerHTML = `<div style="font-size:13px; color:var(--text3)">ยังไม่มีรายชื่อ — กด "แก้ไขรายชื่อ" เพื่อเพิ่ม</div>`;
-  } else {
-    el.innerHTML = members.map(m =>
-      `<span style="display:inline-block; background:var(--surface2); border:1px solid var(--border);
-        border-radius:20px; padding:4px 12px; font-size:13px; margin:3px;">${esc(m)}</span>`
-    ).join('');
-  }
-}
-
-function changeMonth() {
-  const m = document.getElementById('pollMonth').value;
-  if (m) { state.poll.month = m; save(); renderSchedule(); toast('📅 เปลี่ยนเดือนแล้ว'); }
-}
-
-function requestResetSession() {
-  if (!state.session) { toast('ไม่มี Session อยู่'); return; }
-  openPin('resetSession');
-}
-
-function resetSession() {
-  state.session = null;
-  state.currentRole = null;
-  save();
-  renderSession();
+};
+window.addMoreBuyin=async function(name){
+  const amount=state.session.buyinAmount;
+  await addDoc(buyinsCol,{name,amount,role:state.currentRole,ts:serverTimestamp()});
+  toast(`✅ Re-buy ${name} ฿${amount.toLocaleString()}`);
+};
+window.lockSession=function(){ state.currentRole=null; renderSession(); toast('🔒 ออกจากระบบแล้ว'); };
+window.endGame=async function(){ await updateDoc(sessionRef,{ended:true}); state.currentRole=null; toast('🏁 จบเกมแล้ว!'); };
+window.requestResetSession=function(){ if(!state.session){toast('ไม่มี Session อยู่');return;} openPin('resetSession'); };
+window.resetSession=async function(){
+  const snaps=await getDocs(buyinsCol);
+  await Promise.all(snaps.docs.map(d=>deleteDoc(d.ref)));
+  await deleteDoc(sessionRef);
+  state.currentRole=null;
   toast('🗑️ ลบ Session แล้ว');
+};
+
+/* ══════════════════
+   SUMMARY
+══════════════════ */
+function renderSummary(){
+  const s=state.session; const buyins=state.buyins;
+  if(!s||buyins.length===0){ document.getElementById('noSummary').style.display='block'; document.getElementById('summaryContent').style.display='none'; return; }
+  document.getElementById('noSummary').style.display='none';
+  document.getElementById('summaryContent').style.display='block';
+
+  const totalBuyin=buyins.reduce((a,b)=>a+b.amount,0);
+  const buyinCount=buyins.length;
+  const [yy,mm,dd]=s.date.split('-');
+  const thDays=['อาทิตย์','จันทร์','อังคาร','พุธ','พฤหัส','ศุกร์','เสาร์'];
+  const dayTh=thDays[new Date(Number(yy),Number(mm)-1,Number(dd)).getDay()];
+  const playerCount=[...new Set(buyins.map(b=>b.name))].length;
+
+  document.getElementById('summaryStats').innerHTML=`
+    <div class="stat-box"><div class="stat-val text-green" style="font-family:'IBM Plex Mono',monospace">฿${totalBuyin.toLocaleString()}</div><div class="stat-label">รวมทั้งหมด</div></div>
+    <div class="stat-box"><div class="stat-val text-blue" style="font-family:'IBM Plex Mono',monospace">${playerCount} คน / ${buyinCount} ครั้ง</div><div class="stat-label">ผู้เล่น / Buy-in</div></div>`;
+  document.getElementById('summarySessionInfo').innerHTML=`<span style="color:var(--text3)">วัน${dayTh} ${dd}/${mm}/${yy} · Buy-in มาตรฐาน ฿${s.buyinAmount.toLocaleString()}</span>`;
+
+  const nameOrder=[]; buyins.forEach(b=>{if(!nameOrder.includes(b.name))nameOrder.push(b.name);});
+  const playerRounds={}; nameOrder.forEach(n=>{playerRounds[n]=[];}); buyins.forEach(b=>{playerRounds[b.name].push(b.amount);});
+  const maxRounds=Math.max(...nameOrder.map(n=>playerRounds[n].length));
+  const playerTotals={}; nameOrder.forEach(n=>{playerTotals[n]=playerRounds[n].reduce((a,v)=>a+v,0);});
+  nameOrder.sort((a,b)=>playerTotals[b]-playerTotals[a]);
+  const roundTotals=Array.from({length:maxRounds},(_,ri)=>nameOrder.reduce((sum,n)=>sum+(playerRounds[n][ri]||0),0));
+
+  const thS='padding:8px 10px;font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;border-bottom:2px solid var(--border);white-space:nowrap;text-align:center;';
+  const tdB='padding:9px 10px;border-bottom:1px solid var(--border);font-size:14px;';
+  let thead=`<thead><tr><th style="${thS}text-align:left">ชื่อ</th>`;
+  for(let r=1;r<=maxRounds;r++) thead+=`<th style="${thS}">ครั้งที่ ${r}</th>`;
+  thead+=`<th style="${thS}color:var(--green)">รวม</th></tr></thead>`;
+  let tbody='<tbody>';
+  nameOrder.forEach((name,ni)=>{
+    const bg=ni%2===0?'':'background:var(--surface2);';
+    tbody+=`<tr style="${bg}"><td style="${tdB}font-weight:700">${esc(name)}</td>`;
+    for(let r=0;r<maxRounds;r++){const amt=playerRounds[name][r]; tbody+=amt!==undefined?`<td style="${tdB}text-align:center;font-family:'IBM Plex Mono',monospace">฿${amt.toLocaleString()}</td>`:`<td style="${tdB}text-align:center;color:var(--text3)">—</td>`;}
+    tbody+=`<td style="${tdB}text-align:center;font-family:'IBM Plex Mono',monospace;font-weight:700;color:var(--green);background:var(--green-dim)">฿${playerTotals[name].toLocaleString()}</td></tr>`;
+  });
+  tbody+=`<tr style="border-top:2px solid var(--border)"><td style="${tdB}font-size:12px;color:var(--text3);font-weight:600">รวมต่อรอบ</td>`;
+  for(let r=0;r<maxRounds;r++) tbody+=`<td style="${tdB}text-align:center;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--text2)">฿${roundTotals[r].toLocaleString()}</td>`;
+  tbody+=`<td style="${tdB}text-align:center;font-family:'IBM Plex Mono',monospace;font-weight:700;color:var(--gold);background:var(--gold-dim)">฿${totalBuyin.toLocaleString()}</td></tr></tbody>`;
+  document.getElementById('buyinBreakdownTable').innerHTML=thead+tbody;
+
+  const pad=(str,len)=>str+' '.repeat(Math.max(0,len-str.length));
+  const maxLen=Math.max(...nameOrder.map(n=>n.length),4);
+  let txt=`🃏 ${state.groupName||'Poker Night'}\n📅 วัน${dayTh} ${dd}/${mm}/${yy}\n${'─'.repeat(30)}\n💰 Buy-in มาตรฐาน: ฿${s.buyinAmount.toLocaleString()}\n${'─'.repeat(30)}\n`;
+  nameOrder.forEach(name=>{ txt+=`${pad(name,maxLen)}  ${playerRounds[name].map(a=>`฿${a.toLocaleString()}`).join(' + ')} = ฿${playerTotals[name].toLocaleString()}\n`; });
+  txt+=`${'─'.repeat(30)}\n💵 รวมทั้งหมด: ฿${totalBuyin.toLocaleString()}\n👥 ผู้เล่น ${playerCount} คน | Buy-in ${buyinCount} ครั้ง\n${'─'.repeat(30)}\n${s.ended?'🏁 จบเกมแล้ว':'🟢 กำลังเล่นอยู่'}\n📋 Poker Night App`;
+  document.getElementById('summaryText').textContent=txt;
 }
 
-// ════════════════════════════════
-//  UTIL
-// ════════════════════════════════
-function esc(s) {
-  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+window.copySummary=function(){
+  const txt=document.getElementById('summaryText').textContent;
+  navigator.clipboard.writeText(txt).then(()=>toast('📋 คัดลอกแล้ว! วางใน LINE ได้เลย'))
+    .catch(()=>{ const ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);toast('📋 คัดลอกแล้ว!'); });
+};
+
+/* ══════════════════
+   SETTINGS
+══════════════════ */
+window.saveSettings=async function(){
+  const g=document.getElementById('groupName').value||'Poker Night Gang';
+  await setDoc(settingsRef,{groupName:g},{merge:true});
+  toast('💾 บันทึกแล้ว');
+};
+window.requestMemberEdit=function(){ if(!state.session){unlockMemberEdit();return;} openPin('editMembers'); };
+window.unlockMemberEdit=function(){ document.getElementById('memberEditSection').style.display='block'; document.getElementById('memberLockSection').style.display='none'; document.getElementById('memberList').value=(state.members||[]).join('\n'); };
+window.lockMemberEdit=function(){ document.getElementById('memberEditSection').style.display='none'; document.getElementById('memberLockSection').style.display='block'; };
+window.saveMemberList=async function(){
+  const members=document.getElementById('memberList').value.split('\n').map(s=>s.trim()).filter(Boolean);
+  await setDoc(settingsRef,{members},{merge:true});
+  lockMemberEdit(); toast(`✅ บันทึกรายชื่อ ${members.length} คนแล้ว`);
+};
+function renderMemberListDisplay(){
+  const members=state.members||[];
+  const el=document.getElementById('memberListDisplay'); if(!el)return;
+  el.innerHTML=members.length===0
+    ?`<div style="font-size:13px;color:var(--text3)">ยังไม่มีรายชื่อ</div>`
+    :members.map(m=>`<span style="display:inline-block;background:var(--surface2);border:1px solid var(--border);border-radius:20px;padding:4px 12px;font-size:13px;margin:3px">${esc(m)}</span>`).join('');
 }
 
-// ════════════════════════════════
-//  INIT
-// ════════════════════════════════
-function init() {
-  load();
-  // Set default month
-  if (!state.poll.month) state.poll.month = currentYM();
-  document.getElementById('pollMonth').value = state.poll.month;
-
-  // Set default date for new session
-  const today = new Date();
-  document.getElementById('newSessionDate').value =
-    `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
-
-  // Load settings
-  document.getElementById('groupName').value = state.groupName || 'Poker Night Gang';
-  renderMemberListDisplay();
-
-  renderSchedule();
-  renderSession();
-}
-
-init();
+/* ── Init ── */
+const today=new Date();
+document.getElementById('newSessionDate').value=`${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
+document.getElementById('pollMonth').value=currentYM();
 </script>
 </body>
 </html>
