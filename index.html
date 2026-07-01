@@ -605,7 +605,10 @@ function renderSession(){
         </td>
         <td style="${tdS}text-align:right;font-family:'IBM Plex Mono',monospace;font-size:15px;font-weight:600">฿${row.amount.toLocaleString()}</td>
         <td style="${tdS}text-align:right;font-family:'IBM Plex Mono',monospace;font-size:15px;font-weight:700;color:var(--green)">฿${row.running.toLocaleString()}</td>
-        ${authed?`<td style="${tdS}text-align:center"><button class="btn btn-ghost btn-sm" onclick="addMoreBuyin('${esc(row.name)}')">+1</button></td>`:''}
+        ${authed?`<td style="${tdS}text-align:center;white-space:nowrap">
+          <button class="btn btn-ghost btn-sm" onclick="addMoreBuyin('${esc(row.name)}')" style="margin-right:4px">+1</button>
+          <button class="btn btn-sm" onclick="deleteBuyin('${row.id}')" style="background:var(--red-dim);color:var(--red);border:1px solid var(--red);padding:6px 10px" title="ลบรายการนี้">🗑️</button>
+        </td>`:''}
       </tr>`;
     });
     const grandTotal=buyins.reduce((a,b)=>a+b.amount,0);
@@ -638,6 +641,12 @@ window.addMoreBuyin=async function(name){
   const amount=state.session.buyinAmount;
   await addDoc(buyinsCol,{name,amount,role:state.currentRole,ts:serverTimestamp()});
   toast(`✅ Re-buy ${name} ฿${amount.toLocaleString()}`);
+};
+window.deleteBuyin=async function(id){
+  if(!id){toast('⚠️ ไม่พบรายการ');return;}
+  if(!confirm('ลบรายการนี้?'))return;
+  await deleteDoc(doc(db,'poker','session','buyins',id));
+  toast('🗑️ ลบรายการแล้ว');
 };
 window.lockSession=function(){ state.currentRole=null; renderSession(); toast('🔒 ออกจากระบบแล้ว'); };
 window.endGame=async function(){ await updateDoc(sessionRef,{ended:true}); state.currentRole=null; toast('🏁 จบเกมแล้ว!'); };
